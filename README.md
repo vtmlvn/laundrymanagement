@@ -1,4 +1,4 @@
-# tryhard
+# Laundry Management
 
 ## Project setup
 ```
