@@ -1,7 +1,7 @@
 .DS_Store
-node_modules
+node_modules/
+package-lock.json
 /dist
-/UserSide/vue-material-kit-master/node_modules
 
 # local env files
 .env.local
