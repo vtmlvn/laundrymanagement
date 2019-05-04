@@ -16,14 +16,16 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('uuid',64)->nullable();
+            $table->string('uuid', 64)->nullable();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('title')->nullable();
-            $table->text('description')->nullable();
+            $table->string('owner')->nullable();
+            $table->string('type')->nullable();
+            $table->string('description')->nullable();
+            $table->double('quantity', 3, 2)->nullable();
+            $table->integer('price')->nullable();
             $table->date('start_date')->nullable();
             $table->date('due_date')->nullable();
-            $table->integer('progress')->default(0);
             $table->integer('status')->default(0);
             $table->timestamps();
         });

@@ -19,7 +19,7 @@
                                         <th>Owner</th>
                                         <th>Start Date</th>
                                         <th>Due Date</th>
-                                        <th>Progress</th>
+                                        <!-- <th>Progress</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -27,12 +27,12 @@
                                         <td v-text="task.title"></td>
                                         <td>{{ task.start_date | moment }}</td>
                                         <td>{{ task.due_date | moment }}</td>
-                                        <td>
+                                        <!-- <td>
                                             <div class="progress" style="height: 10px;">
                                                 <div :class="getProgressColor(task)" role="progressbar" :style="getProgress(task)" aria-valuenow="task.progress" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                             {{ task.progress }} %
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 </tbody>
                             </table>

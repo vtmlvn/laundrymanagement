@@ -5,8 +5,11 @@ use Eloquent;
 class Task extends Eloquent {
 
 	protected $fillable = [
-							'title',
+							'owner',
+							'type',
 							'description',
+							'quantity',
+							'price',
 							'start_date',
 							'due_date'
 						];

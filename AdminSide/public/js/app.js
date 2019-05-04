@@ -24730,33 +24730,6 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [
                             _vm._v(_vm._s(_vm._f("moment")(task.due_date)))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "div",
-                              {
-                                staticClass: "progress",
-                                staticStyle: { height: "10px" }
-                              },
-                              [
-                                _c("div", {
-                                  class: _vm.getProgressColor(task),
-                                  style: _vm.getProgress(task),
-                                  attrs: {
-                                    role: "progressbar",
-                                    "aria-valuenow": "task.progress",
-                                    "aria-valuemin": "0",
-                                    "aria-valuemax": "100"
-                                  }
-                                })
-                              ]
-                            ),
-                            _vm._v(
-                              "\n                                        " +
-                                _vm._s(task.progress) +
-                                " %\n                                    "
-                            )
                           ])
                         ])
                       }),
@@ -25056,9 +25029,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Start Date")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Due Date")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Progress")])
+        _c("th", [_vm._v("Due Date")])
       ])
     ])
   },
@@ -27014,7 +26985,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 sortBy: 'start_date',
                 order: 'desc',
                 status: '',
-                title: '',
+                owner: '',
                 pageLength: 5
             }
         };
@@ -27164,25 +27135,67 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 
+
+var showDetailedForm = function showDetailedForm() {
+    if (document.getElementById("satuanButton").checked) {
+        document.getElementById("satuan").style.display = 'block';
+        document.getElementById("kiloan").style.display = 'none';
+    } else if (document.getElementById("kiloanButton").checked) {
+        document.getElementById("kiloan").style.display = 'block';
+        document.getElementById("satuan").style.display = 'none';
+    }
+};
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             taskForm: new Form({
-                'title': '',
+                'owner': '',
+                'type': '',
                 'description': '',
+                'quantity': 0,
+                'price': 0,
                 'start_date': '',
                 'due_date': '',
-                'progress': 0
+                'status': 0
             })
         };
     },
 
+    computed: {
+        price: function price() {
+            if (this.taskForm.type == "kiloan") {
+                this.taskForm.description = 'Kiloan';
+                this.taskForm.price = Math.round(this.taskForm.quantity * 5000);
+                return this.taskForm.price;
+            }
+        }
+    },
     components: { datepicker: __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker___default.a, RangeSlider: __WEBPACK_IMPORTED_MODULE_1_vue_range_slider___default.a },
     props: ['id'],
     mounted: function mounted() {
@@ -27201,7 +27214,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         storeTask: function storeTask() {
             var _this = this;
 
-            this.taskForm.post('/api/task').then(function (response) {
+            this.taskForm.post('/api/task/').then(function (response) {
                 toastr['success'](response.message);
                 _this.$emit('completed', response.task);
             }).catch(function (response) {
@@ -27212,11 +27225,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             axios.get('/api/task/' + this.id).then(function (response) {
-                _this2.taskForm.title = response.data.title;
+                _this2.taskForm.owner = response.data.owner;
+                _this2.taskForm.type = response.data.type;
                 _this2.taskForm.description = response.data.description;
+                _this2.taskForm.quantity = response.data.quantity;
+                _this2.taskForm.price = response.data.price;
                 _this2.taskForm.start_date = response.data.start_date;
                 _this2.taskForm.due_date = response.data.due_date;
-                _this2.taskForm.progress = response.data.progress;
             }).catch(function (response) {
                 toastr['error'](response.message);
             });
@@ -27231,6 +27246,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (response) {
                 toastr['error'](response.message);
             });
+        },
+        switchType: function switchType() {
+            showDetailedForm();
         }
     }
 });
@@ -28026,19 +28044,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.taskForm.title,
-                  expression: "taskForm.title"
+                  value: _vm.taskForm.owner,
+                  expression: "taskForm.owner"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text", value: "" },
-              domProps: { value: _vm.taskForm.title },
+              domProps: { value: _vm.taskForm.owner },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.taskForm, "title", $event.target.value)
+                  _vm.$set(_vm.taskForm, "owner", $event.target.value)
                 }
               }
             })
@@ -28114,30 +28132,164 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "col-md-6" }, [
           _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Description")]),
+            _c("label", { attrs: { for: "" } }, [_vm._v("Type")]),
+            _c("br"),
             _vm._v(" "),
-            _c("textarea", {
+            _c("input", {
               directives: [
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.taskForm.description,
-                  expression: "taskForm.description"
+                  value: _vm.taskForm.type,
+                  expression: "taskForm.type"
                 }
               ],
-              staticClass: "form-control",
-              attrs: { type: "text", value: "", rows: "10" },
-              domProps: { value: _vm.taskForm.description },
+              staticStyle: { "margin-left": "5px" },
+              attrs: {
+                type: "radio",
+                id: "satuanButton",
+                name: "laundryType",
+                value: "satuan"
+              },
+              domProps: { checked: _vm._q(_vm.taskForm.type, "satuan") },
               on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.taskForm, "description", $event.target.value)
+                click: function($event) {
+                  return _vm.switchType()
+                },
+                change: function($event) {
+                  return _vm.$set(_vm.taskForm, "type", "satuan")
                 }
               }
-            })
-          ])
+            }),
+            _vm._v("Satuan\n                "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.taskForm.type,
+                  expression: "taskForm.type"
+                }
+              ],
+              staticStyle: { "margin-left": "10px" },
+              attrs: {
+                type: "radio",
+                id: "kiloanButton",
+                name: "laundryType",
+                value: "kiloan"
+              },
+              domProps: { checked: _vm._q(_vm.taskForm.type, "kiloan") },
+              on: {
+                click: function($event) {
+                  return _vm.switchType()
+                },
+                change: function($event) {
+                  return _vm.$set(_vm.taskForm, "type", "kiloan")
+                }
+              }
+            }),
+            _vm._v("Kiloan\n            ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticStyle: { display: "none" }, attrs: { id: "satuan" } },
+            [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Description")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.taskForm.description,
+                      expression: "taskForm.description"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", value: "" },
+                  domProps: { value: _vm.taskForm.description },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.taskForm, "description", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Price")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.taskForm.price,
+                      expression: "taskForm.price"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "number", value: "" },
+                  domProps: { value: _vm.taskForm.price },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.taskForm, "price", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticStyle: { display: "none" }, attrs: { id: "kiloan" } },
+            [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Total Weight")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.taskForm.quantity,
+                      expression: "taskForm.quantity"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "number", step: ".01", value: "" },
+                  domProps: { value: _vm.taskForm.quantity },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.taskForm, "quantity", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Price")]),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: { type: "number", disabled: "" },
+                  domProps: { value: _vm.price }
+                })
+              ])
+            ]
+          )
         ])
       ]),
       _vm._v(" "),
@@ -28475,7 +28627,7 @@ var render = function() {
                             _vm._l(_vm.tasks.data, function(task) {
                               return _c("tr", { key: task.id }, [
                                 _c("td", {
-                                  domProps: { textContent: _vm._s(task.title) }
+                                  domProps: { textContent: _vm._s(task.owner) }
                                 }),
                                 _vm._v(" "),
                                 _c("td", [

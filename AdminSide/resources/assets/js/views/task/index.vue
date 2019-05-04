@@ -92,7 +92,7 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="task in tasks.data" :key="task.id">
-                                                <td v-text="task.title"></td>
+                                                <td v-text="task.owner"></td>
                                                 <td>{{ task.start_date | moment }}</td>
                                                 <td>{{ task.due_date | moment }}</td>
                                                 <!-- <td>
@@ -155,7 +155,7 @@
                     sortBy : 'start_date',
                     order: 'desc',
                     status: '',
-                    title: '',
+                    owner: '',
                     pageLength: 5
                 }
             }

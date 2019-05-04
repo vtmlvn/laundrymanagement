@@ -11,8 +11,8 @@ class TaskController extends Controller
 	public function index(){
 		$tasks = \App\Task::whereNotNull('id');
 
-		if(request()->has('title'))
-			$tasks->where('title','like','%'.request('title').'%');
+		if(request()->has('owner'))
+			$tasks->where('owner','like','%'.request('owner').'%');
 
         if(request()->has('status'))
             $tasks->whereStatus(request('status'));
@@ -23,15 +23,17 @@ class TaskController extends Controller
 	}
 
     public function store(Request $request){
-
+        $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+        $out->writeln(json_encode($request->all()));
         $validation = Validator::make($request->all(), [
-            'title' => 'required',
-            'description' => 'required',
+            'owner' => 'required',
+            'type' => 'required',
             'start_date' => 'required|date_format:Y-m-d',
             'due_date' => 'required|date_format:Y-m-d|after:start_date'
         ]);
 
         if($validation->fails())
+            
         	return response()->json(['message' => $validation->messages()->first()],422);
 
         $user = \JWTAuth::parseToken()->authenticate();
