@@ -17,17 +17,20 @@
                         <router-link to="/home" exact><i class="fa fa-home"></i> <span class="hide-menu">Home</span></router-link>
                     </li>
                     <li>
-                        <router-link to="/task" exact><i class="fa fa-tasks"></i> <span class="hide-menu">Task</span></router-link>
+                        <router-link to="/task" exact><i class="fa fa-tasks"></i> <span class="hide-menu">Laundry</span></router-link>
                     </li>
                     <li>
-                        <router-link to="/blank" exact><i class="fa fa-user"></i> <span class="hide-menu">Blank Page</span></router-link>
+                        <router-link to="/finance" exact><i class="fa fa-usd"></i> <span class="hide-menu">Financial</span></router-link>
                     </li>
                     <li>
-                        <router-link to="/user" exact><i class="fa fa-users"></i> <span class="hide-menu">User</span></router-link>
+                        <router-link to="/verification" exact><i class="fa fa-check-circle"></i> <span class="hide-menu">Verification</span></router-link>
                     </li>
                     <li>
+                        <router-link to="/user" exact><i class="fa fa-users"></i> <span class="hide-menu">Members</span></router-link>
+                    </li>
+                    <!-- <li>
                         <router-link to="/anything" exact><i class="fa fa-exclamation-triangle"></i> <span class="hide-menu">Error Page</span></router-link>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="#" @click.prevent="logout"><i class="fa fa-power-off"></i> <span class="hide-menu">Logout</span></a>
                     </li>

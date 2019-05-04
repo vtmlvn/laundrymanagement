@@ -25,7 +25,7 @@ class TaskController extends Controller
     public function store(Request $request){
 
         $validation = Validator::make($request->all(), [
-            'title' => 'required|unique:tasks',
+            'title' => 'required',
             'description' => 'required',
             'start_date' => 'required|date_format:Y-m-d',
             'due_date' => 'required|date_format:Y-m-d|after:start_date'

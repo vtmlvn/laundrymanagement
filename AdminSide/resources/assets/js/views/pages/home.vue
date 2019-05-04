@@ -7,23 +7,23 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-8 col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Recent Incomplete Task</h4>
-                        <h6 class="card-subtitle" v-if="!recent_incomplete_tasks.length">No result found!</h6>
+                        <h4 class="card-title">Recent Incomplete Laundry</h4>
+                        <h6 class="card-subtitle" v-if="!recent_incomplete_tasks.length">There's no incomplete laundry.</h6>
                         <div class="table-responsive m-t-40">
                             <table class="table stylish-table" v-if="recent_incomplete_tasks.length">
                                 <thead>
                                     <tr>
-                                        <th>Title</th>
+                                        <th>Owner</th>
                                         <th>Start Date</th>
                                         <th>Due Date</th>
                                         <th>Progress</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="task in recent_incomplete_tasks">
+                                    <tr v-for="task in recent_incomplete_tasks" :key="task.id">
                                         <td v-text="task.title"></td>
                                         <td>{{ task.start_date | moment }}</td>
                                         <td>{{ task.due_date | moment }}</td>
@@ -43,10 +43,10 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Users</h4>
+                                <h4 class="card-title">Admins</h4>
                                 <div class="text-right">
                                     <h2 class="font-light m-b-0"><i class="fa fa-users text-success"></i> {{users_count}}</h2>
-                                    <span class="text-muted">Total Users</span>
+                                    <span class="text-muted">Total Admin</span>
                                 </div>
                             </div>
                         </div>
@@ -54,20 +54,20 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Tasks</h4>
+                                <h4 class="card-title">Laundries</h4>
                                 <div class="text-right">
                                     <h2 class="font-light m-b-0"><i class="fa fa-tasks text-info"></i> {{tasks_count}}</h2>
-                                    <span class="text-muted">Total Tasks</span>
+                                    <span class="text-muted">Total Laundries</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body b-b">
-                        <h4 class="card-title">My Todo</h4>
+                        <h4 class="card-title">To do list</h4>
                         <form @submit.prevent="storeTodo">
                             <div class="row">
                                 <div class="col-8">
@@ -90,7 +90,7 @@
                         <div class="message-box" v-if="todos.length">
                             <div class="message-widget message-scroll">
                                 <ul class="list-task todo-list list-group m-b-0" data-role="tasklist">
-                                    <li class="list-group-item" data-role="task" v-for="todo in todos">
+                                    <li class="list-group-item" data-role="task" v-for="todo in todos" :key="todo.id">
                                         <div class="checkbox checkbox-info">
                                             <input type="checkbox" name="inputCheckboxesBook" @change="toggleTodoStatus(todo)" :checked="todo.status">
                                             <label for="inputBook" class=""> <span :class="[todo.status ? 'strikethrough' : '']">{{todo.todo}}</span> </label>

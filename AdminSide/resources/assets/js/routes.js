@@ -16,8 +16,12 @@ let routes = [
                 component: require('./views/pages/home')
             },
             {
-                path: '/blank',
-                component: require('./views/pages/blank')
+                path: '/finance',
+                component: require('./views/pages/finance')
+            },
+            {
+                path: '/verification',
+                component: require('./views/pages/verification')
             },
             {
                 path: '/configuration',

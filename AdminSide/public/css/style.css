@@ -11627,8 +11627,8 @@ File: scss
 }
 
 .topbar .top-navbar {
-  max-height: 50px;
-  padding: 0px 10px 0 0;
+  min-height: 70px;
+  padding: 0px 15px 0 0;
 }
 
 .topbar .top-navbar .dropdown-toggle::after {

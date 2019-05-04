@@ -2,117 +2,138 @@
 	<div>
         <div class="row page-titles">
             <div class="col-md-6 col-8 align-self-center">
-                <h3 class="text-themecolor m-b-0 m-t-0">User</h3>
-                <ol class="breadcrumb">
+                <h3 class="text-themecolor m-b-0 m-t-0">Member</h3>
+                <!-- <ol class="breadcrumb">
                     <li class="breadcrumb-item"><router-link to="/home">Home</router-link></li>
                     <li class="breadcrumb-item active">User</li>
-                </ol>
+                </ol> -->
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Filter User</h4>
-
-                        <div class="row m-t-40">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="">First Name</label>
-                                    <input class="form-control" v-model="filterUserForm.first_name" @blur="getUsers">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="">Last Name</label>
-                                    <input class="form-control" v-model="filterUserForm.last_name" @blur="getUsers">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="">Email</label>
-                                    <input class="form-control" v-model="filterUserForm.email" @blur="getUsers">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="">Status</label>
-                                    <select name="status" class="form-control" v-model="filterUserForm.status" @change="getUsers">
-                                        <option value="">All</option>
-                                        <option value="pending_activation">Pending Activation</option>
-                                        <option value="activated">Activated</option>
-                                        <option value="banned">Banned</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="">Sort By</label>
-                                    <select name="sortBy" class="form-control" v-model="filterUserForm.sortBy" @change="getUsers">
-                                        <option value="first_name">First Name</option>
-                                        <option value="last_name">Last Name</option>
-                                        <option value="email">Email</option>
-                                        <option value="status">Status</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="">Order</label>
-                                    <select name="order" class="form-control" v-model="filterUserForm.order" @change="getUsers">
-                                        <option value="asc">Asc</option>
-                                        <option value="desc">Desc</option>
-                                    </select>
-                                </div>
+        
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Add New</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Laundry List</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Add new Member</h4>
+                                <task-form @completed="getUsers"></task-form>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- <h4 class="card-title">Filter User</h4> -->
+                                <!-- <div class="row m-t-40">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">First Name</label>
+                                            <input class="form-control" v-model="filterUserForm.first_name" @blur="getUsers">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Last Name</label>
+                                            <input class="form-control" v-model="filterUserForm.last_name" @blur="getUsers">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Email</label>
+                                            <input class="form-control" v-model="filterUserForm.email" @blur="getUsers">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Status</label>
+                                            <select name="status" class="form-control" v-model="filterUserForm.status" @change="getUsers">
+                                                <option value="">All</option>
+                                                <option value="pending_activation">Pending Activation</option>
+                                                <option value="activated">Activated</option>
+                                                <option value="banned">Banned</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Sort By</label>
+                                            <select name="sortBy" class="form-control" v-model="filterUserForm.sortBy" @change="getUsers">
+                                                <option value="first_name">First Name</option>
+                                                <option value="last_name">Last Name</option>
+                                                <option value="email">Email</option>
+                                                <option value="status">Status</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Order</label>
+                                            <select name="order" class="form-control" v-model="filterUserForm.order" @change="getUsers">
+                                                <option value="asc">Asc</option>
+                                                <option value="desc">Desc</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> -->
 
-                        <h4 class="card-title">User List</h4>
-                        <h6 class="card-subtitle" v-if="users.total">Total {{users.total}} result found!</h6>
-                        <h6 class="card-subtitle" v-else>No result found!</h6>
-                        <div class="table-responsive">
-                            <table class="table" v-if="users.total">
-                                <thead>
-                                    <tr>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Date of Birth</th>
-                                        <th>Gender</th>
-                                        <th>Email</th>
-                                        <th>Status</th>
-                                        <th style="width:150px;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="user in users.data">
-                                        <td v-text="user.profile.first_name"></td>
-                                        <td v-text="user.profile.last_name"></td>
-                                        <td>{{ user.profile.date_of_birth | moment }}</td>
-                                        <td>{{ user.profile.gender | ucword }}</td>
-                                        <td v-text="user.email"></td>
-                                        <td v-html="getUserStatus(user)"></td>
-                                        <td>
-                                            <click-confirm yes-class="btn btn-success" no-class="btn btn-danger">
-                                                <button class="btn btn-danger btn-sm" @click.prevent="deleteUser(user)" data-toggle="tooltip" title="Delete User"><i class="fa fa-trash"></i></button>
-                                            </click-confirm>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                <h4 class="card-title">User List</h4>
+                                <h6 class="card-subtitle" v-if="users.total">Total {{users.total}} result found!</h6>
+                                <h6 class="card-subtitle" v-else>No result found!</h6>
+                                <div class="table-responsive">
+                                    <table class="table" v-if="users.total">
+                                        <thead>
+                                            <tr>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Date of Birth</th>
+                                                <th>Gender</th>
+                                                <th>Email</th>
+                                                <th>Status</th>
+                                                <th style="width:150px;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="user in users.data" :key="user.id">
+                                                <td v-text="user.profile.first_name"></td>
+                                                <td v-text="user.profile.last_name"></td>
+                                                <td>{{ user.profile.date_of_birth | moment }}</td>
+                                                <td>{{ user.profile.gender | ucword }}</td>
+                                                <td v-text="user.email"></td>
+                                                <td v-html="getUserStatus(user)"></td>
+                                                <td>
+                                                    <click-confirm yes-class="btn btn-success" no-class="btn btn-danger">
+                                                        <button class="btn btn-danger btn-sm" @click.prevent="deleteUser(user)" data-toggle="tooltip" title="Delete User"><i class="fa fa-trash"></i></button>
+                                                    </click-confirm>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
 
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <pagination :data="users" :limit=3 v-on:pagination-change-page="getUsers"></pagination>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="float-right">
-                                        <select name="pageLength" class="form-control" v-model="filterUserForm.pageLength" @change="getUsers" v-if="users.total">
-                                            <option value="5">5 per page</option>
-                                            <option value="10">10 per page</option>
-                                            <option value="25">25 per page</option>
-                                            <option value="100">100 per page</option>
-                                        </select>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <pagination :data="users" :limit=3 v-on:pagination-change-page="getUsers"></pagination>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="float-right">
+                                                <select name="pageLength" class="form-control" v-model="filterUserForm.pageLength" @change="getUsers" v-if="users.total">
+                                                    <option value="5">5 per page</option>
+                                                    <option value="10">10 per page</option>
+                                                    <option value="25">25 per page</option>
+                                                    <option value="100">100 per page</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
